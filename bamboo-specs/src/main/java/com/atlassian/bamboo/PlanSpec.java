@@ -1,21 +1,22 @@
-import com.atlassian.bamboo.specs.util.BambooServer;
+
 import com.atlassian.bamboo.specs.api.BambooSpec;
-import com.atlassian.bamboo.specs.api.builders.plan.Plan;
-import com.atlassian.bamboo.specs.api.builders.plan.PlanIdentifier;
-import com.atlassian.bamboo.specs.api.builders.project.Project;
-import com.atlassian.bamboo.specs.builders.repository.git.UserPasswordAuthentication;
-import com.atlassian.bamboo.specs.util.BambooServer;
-import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
+import com.atlassian.bamboo.specs.api.builders.BambooKey;
+import com.atlassian.bamboo.specs.api.builders.BambooOid;
 import com.atlassian.bamboo.specs.api.builders.permission.PermissionType;
+import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
 import com.atlassian.bamboo.specs.api.builders.permission.PlanPermissions;
 import com.atlassian.bamboo.specs.api.builders.plan.Job;
+import com.atlassian.bamboo.specs.api.builders.plan.Plan;
+import com.atlassian.bamboo.specs.api.builders.plan.PlanIdentifier;
 import com.atlassian.bamboo.specs.api.builders.plan.Stage;
 import com.atlassian.bamboo.specs.api.builders.plan.artifact.Artifact;
-import com.atlassian.bamboo.specs.api.builders.repository.VcsRepository;
-import com.atlassian.bamboo.specs.builders.repository.git.GitRepository;
-import com.atlassian.bamboo.specs.builders.task.ScriptTask;
+import com.atlassian.bamboo.specs.api.builders.plan.branches.BranchCleanup;
+import com.atlassian.bamboo.specs.api.builders.plan.branches.PlanBranchManagement;
+import com.atlassian.bamboo.specs.api.builders.plan.configuration.ConcurrentBuilds;
+import com.atlassian.bamboo.specs.api.builders.project.Project;
+import com.atlassian.bamboo.specs.builders.task.CheckoutItem;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
-
+import com.atlassian.bamboo.specs.util.BambooServer;
 
 @BambooSpec
 public class PlanSpec {
@@ -28,7 +29,7 @@ public class PlanSpec {
                 new BambooKey("PLANKEY1"))
                 .description("hello")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("COMMITTED9")
+                .stages(new Stage("COMITTED10")
                         .jobs(new Job("Job Name",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
@@ -37,13 +38,7 @@ public class PlanSpec {
                                         .location("target"))
                                 .tasks(new VcsCheckoutTask()
                                         .checkoutItems(new CheckoutItem().defaultRepository()))))
-                .planRepositories(new GitRepository()
-                        .name("devops-service")
-                        .url("https://github.com/sagarrajput91/devops.git")
-                        .branch("master")
-                        .authentication(new UserPasswordAuthentication("sagarrajput91")
-                                .password("BAMSCRT@0@0@TfNpXIjO8wzAnv0TZgqLK+GZ+ikC+MnGWuPL3uUvTmAjcyNpRdKWF5Ohj0VsXPnG"))
-                        .changeDetection(new VcsChangeDetection()))
+                .linkedRepositories("devops-service")
 
                 .planBranchManagement(new PlanBranchManagement()
                         .delete(new BranchCleanup()))
