@@ -1,104 +1,59 @@
-package com.atlassian.bamboo;
-
-import com.atlassian.bamboo.specs.api.BambooSpec;
-import com.atlassian.bamboo.specs.api.builders.plan.Plan;
-import com.atlassian.bamboo.specs.api.builders.plan.PlanIdentifier;
-import com.atlassian.bamboo.specs.api.builders.project.Project;
-import com.atlassian.bamboo.specs.builders.repository.git.UserPasswordAuthentication;
 import com.atlassian.bamboo.specs.util.BambooServer;
-import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
-import com.atlassian.bamboo.specs.api.builders.permission.PermissionType;
-import com.atlassian.bamboo.specs.api.builders.permission.PlanPermissions;
-import com.atlassian.bamboo.specs.api.builders.plan.Job;
-import com.atlassian.bamboo.specs.api.builders.plan.Stage;
-import com.atlassian.bamboo.specs.api.builders.plan.artifact.Artifact;
-import com.atlassian.bamboo.specs.api.builders.repository.VcsRepository;
-import com.atlassian.bamboo.specs.builders.repository.git.GitRepository;
-import com.atlassian.bamboo.specs.builders.task.ScriptTask;
-import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 
-/**
- * Plan configuration for Bamboo.
- * Learn more on: <a href="https://confluence.atlassian.com/display/BAMBOO/Bamboo+Specs">https://confluence.atlassian.com/display/BAMBOO/Bamboo+Specs</a>
- */
 @BambooSpec
 public class PlanSpec {
 
-    /**
-     * Run main to publish plan on Bamboo
-     */
-    public static void main(final String[] args) throws Exception {
+    public Plan plan() {
+        final Plan plan = new Plan(new Project()
+                .key(new BambooKey("PROJECTKEY"))
+                .name("PRJ"),
+                "PLAN1E",
+                "PLAN1E",
+                new BambooKey("PLANKEY1"))
+                .description("hello")
+                .pluginConfigurations(new ConcurrentBuilds())
+                .stages(new Stage("Stage 1")
+                        .jobs(new Job("Job Name",
+                                new BambooKey("JOBKEY"))
+                                .artifacts(new Artifact()
+                                        .name("Build results")
+                                        .copyPattern("**/*")
+                                        .location("target"))
+                                .tasks(new VcsCheckoutTask()
+                                        .checkoutItems(new CheckoutItem().defaultRepository()))))
+                .planRepositories(new GitRepository()
+                        .name("devops-service")
+                        .url("https://github.com/sagarrajput91/devops.git")
+                        .branch("master")
+                        .authentication(new UserPasswordAuthentication("sagarrajput91")
+                                .password("BAMSCRT@0@0@TfNpXIjO8wzAnv0TZgqLK+GZ+ikC+MnGWuPL3uUvTmAjcyNpRdKWF5Ohj0VsXPnG"))
+                        .changeDetection(new VcsChangeDetection()))
+
+                .planBranchManagement(new PlanBranchManagement()
+                        .delete(new BranchCleanup()))
+                .forceStopHungBuilds();
+        return plan;
+    }
+
+    public PlanPermissions planPermission() {
+        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("PROJECTKEY", "PLANKEY1"))
+                .permissions(new Permissions()
+                        .userPermissions("bamboo", PermissionType.EDIT, PermissionType.VIEW_CONFIGURATION, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
+                        .groupPermissions("bamboo-admin", PermissionType.ADMIN, PermissionType.VIEW_CONFIGURATION, PermissionType.BUILD, PermissionType.CLONE, PermissionType.VIEW, PermissionType.EDIT)
+                        .loggedInUserPermissions(PermissionType.VIEW)
+                        .anonymousUserPermissionView());
+        return planPermission;
+    }
+
+    public static void main(String... argv) {
         //By default credentials are read from the '.credentials' file.
-        BambooServer bambooServer = new BambooServer("http://localhost:8085/");
+        BambooServer bambooServer = new BambooServer("http://172.17.0.2:8085");
+        final PlanSpec planSpec = new PlanSpec();
 
-        Plan plan = new PlanSpec().createPlan();
-
+        final Plan plan = planSpec.plan();
         bambooServer.publish(plan);
 
-        PlanPermissions planPermission = new PlanSpec().createPlanPermission(plan.getIdentifier());
-
+        final PlanPermissions planPermission = planSpec.planPermission();
         bambooServer.publish(planPermission);
     }
-
-    PlanPermissions createPlanPermission(PlanIdentifier planIdentifier) {
-        Permissions permission = new Permissions()
-                .userPermissions("root", PermissionType.ADMIN, PermissionType.CLONE, PermissionType.EDIT)
-                .groupPermissions("bamboo-admin", PermissionType.ADMIN)
-                .loggedInUserPermissions(PermissionType.VIEW)
-                .anonymousUserPermissionView();
-        return new PlanPermissions(planIdentifier.getProjectKey(), planIdentifier.getPlanKey()).permissions(permission);
-    }
-
-    Project project() {
-        return new Project()
-                .name("SagarTest")
-                .key("PRJ");
-    }
-
-    Plan createPlan() {
-        return new Plan(
-                project(),
-                "PlanSagarTest", "PLANKEY")
-                .description("Plan created from (http://localhost:8085/)")
-                .planRepositories(
-                        gitRepository()
-                )
-                .stages(
-                        new Stage("Stage 1").jobs(
-                                new Job("Job Name", "JOBKEY")
-                                        .tasks(
-                                               gitRepositoryCheckoutTask(),
-                                                scriptTask()
-                                        )
-                                        .artifacts(artifact())
-                        )
-                );
-    }
-
-    VcsRepository gitRepository() {
-        return new GitRepository()
-                .name("devops-service")
-                //.url("git@bitbucket.org:your-company/your-repository.git")
-                .url("https://bitbucket.org/calibo01/plf-devops-integration.git")
-                .authentication(new UserPasswordAuthentication("sagarrajput91").password("5mTAnxeTg4LWbQdrcSJC"))
-                .branch("master");
-    }
-
-    VcsCheckoutTask gitRepositoryCheckoutTask() {
-        return new VcsCheckoutTask()
-                .addCheckoutOfDefaultRepository();
-    }
-
-    ScriptTask scriptTask() {
-        return new ScriptTask()
-                .inlineBody("mkdir target; echo 'hello world' > target/console.out")
-                .interpreterShell();
-    }
-
-    Artifact artifact() {
-        return new Artifact("Build results")
-                .location("target")
-                .copyPattern("**/*");
-    }
-
 }

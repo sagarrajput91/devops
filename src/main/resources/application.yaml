@@ -1,0 +1,21 @@
+#bambooserver:
+#  uri: http://localhost:8085/
+
+branchName : master
+
+git:
+  uriDevops : https://github.com/sagarrajput91/devops.git
+  uriJenkins : https://github.com/sagarrajput91/JenkinsTrial.git
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/Tenant084887_devops-integration
+    password: tree@123
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
