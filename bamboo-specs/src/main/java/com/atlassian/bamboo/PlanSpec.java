@@ -1,4 +1,21 @@
 import com.atlassian.bamboo.specs.util.BambooServer;
+import com.atlassian.bamboo.specs.api.BambooSpec;
+import com.atlassian.bamboo.specs.api.builders.plan.Plan;
+import com.atlassian.bamboo.specs.api.builders.plan.PlanIdentifier;
+import com.atlassian.bamboo.specs.api.builders.project.Project;
+import com.atlassian.bamboo.specs.builders.repository.git.UserPasswordAuthentication;
+import com.atlassian.bamboo.specs.util.BambooServer;
+import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
+import com.atlassian.bamboo.specs.api.builders.permission.PermissionType;
+import com.atlassian.bamboo.specs.api.builders.permission.PlanPermissions;
+import com.atlassian.bamboo.specs.api.builders.plan.Job;
+import com.atlassian.bamboo.specs.api.builders.plan.Stage;
+import com.atlassian.bamboo.specs.api.builders.plan.artifact.Artifact;
+import com.atlassian.bamboo.specs.api.builders.repository.VcsRepository;
+import com.atlassian.bamboo.specs.builders.repository.git.GitRepository;
+import com.atlassian.bamboo.specs.builders.task.ScriptTask;
+import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
+
 
 @BambooSpec
 public class PlanSpec {
@@ -11,7 +28,7 @@ public class PlanSpec {
                 new BambooKey("PLANKEY1"))
                 .description("hello")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("COMMITTED8")
+                .stages(new Stage("COMMITTED9")
                         .jobs(new Job("Job Name",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
