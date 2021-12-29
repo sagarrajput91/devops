@@ -30,7 +30,7 @@ public class PlanSpec {
                 .description("hello")
                 .pluginConfigurations(new ConcurrentBuilds())
                 .stages(new Stage("COMITTED10")
-                        .jobs(new Job("Job Name",
+                        .jobs(new Job("JobCommitted1",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
                                         .name("Build results")
