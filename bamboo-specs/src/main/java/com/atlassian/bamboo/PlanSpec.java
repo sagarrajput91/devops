@@ -11,7 +11,7 @@ public class PlanSpec {
                 new BambooKey("PLANKEY1"))
                 .description("hello")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("COMMITTED4")
+                .stages(new Stage("COMMITTED5")
                         .jobs(new Job("Job Name",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
