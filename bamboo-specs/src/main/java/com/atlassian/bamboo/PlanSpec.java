@@ -24,7 +24,6 @@ public class PlanSpec {
 
     public Plan plan() {
         final Plan plan = new Plan(new Project()
-                .variables(new Variable("sequence", "task1 task2 task3"))
                 .key(new BambooKey("PROJECTKEY"))
                 .name("PRJ"),
                 "PLAN1E",
@@ -41,7 +40,8 @@ public class PlanSpec {
                                 .tasks(new VcsCheckoutTask()
                                         .checkoutItems(new CheckoutItem().defaultRepository()))))
                 .linkedRepositories("devops-service")
-
+                .variables(new Variable("sequence",
+                        "task1 task2 task3"))
                 .planBranchManagement(new PlanBranchManagement()
                         .delete(new BranchCleanup()))
                 .forceStopHungBuilds();

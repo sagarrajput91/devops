@@ -95,7 +95,7 @@ public class BambooServiceImpl implements BambooService {
         final GitRepository repository = new GitRepository()
                 .name("Git Linked repository")
                 .repositoryViewer(new GitHubRepositoryViewer()).authentication(new UserPasswordAuthentication(
-                        "sagarrajput91").password("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")).url(gitJenkinsUrl).branch(branchName);
+                        "sagarrajput91").password("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")).url(gitJenkinsUrl).branch(branchName) ;
         return repository;
     }
 
@@ -150,6 +150,7 @@ public class BambooServiceImpl implements BambooService {
                getProject(projectKey),
                 plan.getName(), plan.getKey())
                 .description(plan.getDescription())
+               .linkedRepositories("")
                 .planRepositories(
                         gitRepository()
                 )
