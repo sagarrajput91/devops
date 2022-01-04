@@ -18,6 +18,7 @@ import com.atlassian.bamboo.specs.builders.task.CheckoutItem;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 import com.atlassian.bamboo.specs.util.BambooServer;
 import com.atlassian.bamboo.specs.api.builders.Variable;
+import com.atlassian.bamboo.specs.builders.task.ScriptTask;
 
 @BambooSpec
 public class PlanSpec {
@@ -38,7 +39,17 @@ public class PlanSpec {
                                         .copyPattern("**/*")
                                         .location("target"))
                                 .tasks(new VcsCheckoutTask()
-                                        .checkoutItems(new CheckoutItem().defaultRepository()))))
+                                        .checkoutItems(new CheckoutItem().defaultRepository()),
+                                        new ScriptTask()
+                                                .description("task1")
+                                                .inlineBody("echo 'task1'"),
+                                        new ScriptTask()
+                                                .description("task2")
+                                                .inlineBody("echo \"task2\""),
+                                        new ScriptTask()
+                                                .description("task3")
+                                                .inlineBody("echo \"task3\"")
+                                )))
                 .linkedRepositories("devops-service")
                 .variables(new Variable("sequence",
                         "task1 task2 task3"))
