@@ -3,6 +3,7 @@ package devops.controller;
 
 import devops.entity.Plan;
 import devops.entity.PlanPermissions;
+import devops.entity.PlanVariable;
 import devops.entity.Project;
 import devops.service.BambooService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class BambooController {
         service.createPlanPermission(planPermissions);
     }*/
 
-    @PostMapping("/plan/publish/{proj-key}/{plan-key}")
+    @PostMapping("/project/{proj-key}/plan/{plan-key}/publish")
     void publish(@PathVariable("proj-key") String projectKey,@PathVariable("plan-key") String planKey){
         service.publish(projectKey,planKey);
     }
@@ -40,5 +41,10 @@ public class BambooController {
     @PostMapping("/linkedrepository")
     void createLinkedrepository(){
         service.createLinkedrepository();
+    }
+
+    @PostMapping("/project/{proj-key}/plan/{plan-key}/planvariable")
+    void createPlanvariable(@PathVariable("proj-key") String projectKey,@PathVariable("plan-key") String planKey,@RequestBody PlanVariable planVariable){
+        service.createPlanvariable(projectKey,planKey,planVariable);
     }
 }

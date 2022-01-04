@@ -1,6 +1,7 @@
+
 import com.atlassian.bamboo.specs.api.BambooSpec;
 import com.atlassian.bamboo.specs.api.builders.BambooKey;
-import com.atlassian.bamboo.specs.api.builders.Variable;
+import com.atlassian.bamboo.specs.api.builders.BambooOid;
 import com.atlassian.bamboo.specs.api.builders.permission.PermissionType;
 import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
 import com.atlassian.bamboo.specs.api.builders.permission.PlanPermissions;
@@ -16,6 +17,7 @@ import com.atlassian.bamboo.specs.api.builders.project.Project;
 import com.atlassian.bamboo.specs.builders.task.CheckoutItem;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 import com.atlassian.bamboo.specs.util.BambooServer;
+import com.atlassian.bamboo.specs.api.builders.Variable;
 import com.atlassian.bamboo.specs.builders.task.ScriptTask;
 
 @BambooSpec
@@ -23,14 +25,14 @@ public class PlanSpec {
 
     public Plan plan() {
         final Plan plan = new Plan(new Project()
-                .key(new BambooKey("DEMOPROJECTKEY"))
-                .name("DEMOPROJECT"),
-                "PLAN1",
+                .key(new BambooKey("PROJECTKEY"))
+                .name("PRJ"),
+                "PLAN1E",
                 new BambooKey("PLANKEY1"))
-                .description("plan1")
+                .description("hello")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("Stage1")
-                        .jobs(new Job("Job1",
+                .stages(new Stage("COMITTED100")
+                        .jobs(new Job("JobCommitted1",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
                                         .name("Build results")
@@ -49,9 +51,8 @@ public class PlanSpec {
                                                 .inlineBody("echo \"task3\"\necho ${bamboo.sequence}")
                                 )))
                 .linkedRepositories("devops-service")
-
                 .variables(new Variable("sequence",
-                        "task2 task1 task3"))
+                        "task1 task2 task3"))
                 .planBranchManagement(new PlanBranchManagement()
                         .delete(new BranchCleanup()))
                 .forceStopHungBuilds();
@@ -59,7 +60,7 @@ public class PlanSpec {
     }
 
     public PlanPermissions planPermission() {
-        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("DEMOPROJECTKEY", "PLANKEY1"))
+        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("PROJECTKEY", "PLANKEY1"))
                 .permissions(new Permissions()
                         .userPermissions("bamboo", PermissionType.EDIT, PermissionType.VIEW_CONFIGURATION, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
                         .groupPermissions("bamboo-admin", PermissionType.ADMIN, PermissionType.VIEW_CONFIGURATION, PermissionType.BUILD, PermissionType.CLONE, PermissionType.VIEW, PermissionType.EDIT)

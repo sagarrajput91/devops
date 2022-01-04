@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -30,5 +31,9 @@ public class Plan {
     @ManyToOne
     @JoinColumn(name="project_id", referencedColumnName = "project_id", insertable = false, updatable = false)
     Project project;
+
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "")
+    //@JoinColumn(name="projectId")
+     Set<PlanVariable> planVariableSet ;
 
 }

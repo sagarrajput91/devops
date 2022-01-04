@@ -1,6 +1,7 @@
 package devops.service;
 
 import devops.entity.Plan;
+import devops.entity.PlanVariable;
 import devops.entity.Project;
 import org.springframework.stereotype.Service;
 
@@ -16,4 +17,6 @@ public interface BambooService {
     void publish( String projectKey,String planKey);
 
     void createLinkedrepository();
+
+    void createPlanvariable(String projectKey, String planKey, PlanVariable planVariable);
 }

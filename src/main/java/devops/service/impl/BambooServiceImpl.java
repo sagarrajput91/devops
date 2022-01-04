@@ -1,5 +1,6 @@
 package devops.service.impl;
 
+import com.atlassian.bamboo.specs.api.builders.Variable;
 import com.atlassian.bamboo.specs.api.builders.permission.PermissionType;
 import com.atlassian.bamboo.specs.api.builders.permission.Permissions;
 import com.atlassian.bamboo.specs.api.builders.permission.PlanPermissions;
@@ -15,6 +16,7 @@ import com.atlassian.bamboo.specs.builders.repository.git.UserPasswordAuthentica
 import com.atlassian.bamboo.specs.builders.repository.viewer.GitHubRepositoryViewer;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 import com.atlassian.bamboo.specs.util.BambooServer;
+import devops.entity.PlanVariable;
 import devops.repository.PlanRepository;
 import devops.repository.ProjectRepository;
 import devops.service.BambooService;
@@ -145,18 +147,19 @@ public class BambooServiceImpl implements BambooService {
     private Plan getPlan(String projectKey,String planKey){
 
         devops.entity.Plan plan = planRepository.findByKey(planKey);
-
-       return new Plan(
+        //plan.getPlanVariableSet().stream().map(  (e)->new Variable(e.getKey(),e.getValue()) ).
+        return new Plan(
                getProject(projectKey),
                 plan.getName(), plan.getKey())
+               .variables( plan.getPlanVariableSet().stream().map(  (e)->new Variable(e.getKey(),e.getValue()) ).toArray(Variable[] ::new))
                 .description(plan.getDescription())
-               .linkedRepositories("")
+               .linkedRepositories("devops-service")/*
                 .planRepositories(
                         gitRepository()
-                )
+                )*/
                 .stages(
                         new Stage("Stage 1").jobs(
-                                new Job("Job Name", "JOBKEY")
+                                new Job("Job1", "JOBKEY")
                                         .tasks(
                                                 gitRepositoryCheckoutTask()
                                         )
@@ -165,6 +168,8 @@ public class BambooServiceImpl implements BambooService {
                 ) ;
 
     }
+    
+    
 
 
 
@@ -172,17 +177,41 @@ public class BambooServiceImpl implements BambooService {
     public void publish(String projectKey,String planKey) {
 
         Plan plan= getPlan(projectKey,planKey);
+        publishPlan(plan);
+
+    }
+
+    private void publishPlan(Plan plan) {
         bambooServer.publish(plan);
 
         PlanPermissions planPermission = createPlanPermission(plan.getIdentifier());
 
         bambooServer.publish(planPermission);
-
     }
 
     @Override
     public void createLinkedrepository() {
-        //bambooServer.publish(gitRepository());
-        bambooServer.publish(repository());
+        bambooServer.publish(gitRepository());
+        //bambooServer.publish(repository());
+    }
+
+
+    /*
+     please use VariableConfigurationService.createPlanVariable
+    *
+     * Creates new Plan variable.
+     * @param plan plan the variable belongs to
+     * @param variableKey variable key.
+     * @param variableValue variable value
+     * @return created {@link VariableDefinition}
+     * @throws IllegalArgumentException iff variable key is not unique
+    @NotNull
+    VariableDefinition createPlanVariable(@NotNull Plan plan, @NotNull String variableKey, @NotNull String variableValue)*/
+
+    @Override
+    public void createPlanvariable(String projectKey, String planKey, PlanVariable planVariable) {
+        Plan plan = getPlan(projectKey, planKey);
+        plan.variables(new Variable(planVariable.getKey(), planVariable.getValue()));
+        publishPlan(plan);
     }
 }
