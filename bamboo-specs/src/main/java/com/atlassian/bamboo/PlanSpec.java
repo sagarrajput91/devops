@@ -17,12 +17,14 @@ import com.atlassian.bamboo.specs.api.builders.project.Project;
 import com.atlassian.bamboo.specs.builders.task.CheckoutItem;
 import com.atlassian.bamboo.specs.builders.task.VcsCheckoutTask;
 import com.atlassian.bamboo.specs.util.BambooServer;
+import com.atlassian.bamboo.specs.api.builders.Variable;
 
 @BambooSpec
 public class PlanSpec {
 
     public Plan plan() {
         final Plan plan = new Plan(new Project()
+                .variables(new Variable("sequence", "task1 task2 task3"))
                 .key(new BambooKey("PROJECTKEY"))
                 .name("PRJ"),
                 "PLAN1E",
