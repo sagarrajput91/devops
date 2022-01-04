@@ -48,7 +48,7 @@ public class PlanSpec {
                                                 .inlineBody("echo \"task2\""),
                                         new ScriptTask()
                                                 .description("task3")
-                                                .inlineBody("echo \"task3\"")
+                                                .inlineBody("echo \"task3\"\necho ${bamboo.sequence}")
                                 )))
                 .linkedRepositories("devops-service")
                 .variables(new Variable("sequence",
