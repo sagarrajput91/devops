@@ -25,12 +25,12 @@ public class PlanSpec {
         final Plan plan = new Plan(new Project()
                 .key(new BambooKey("DEMOPROJECTKEY5"))
                 .name("DEMOPROJECT5"),
-                "PLAN1",
+                "PLAN5",
                 new BambooKey("PLANKEY5"))
                 .description("plan5")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("Stage5")
-                        .jobs(new Job("Job5",
+                .stages(new Stage("Stage1")
+                        .jobs(new Job("Job1",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
                                         .name("Build results")
@@ -59,7 +59,7 @@ public class PlanSpec {
     }
 
     public PlanPermissions planPermission() {
-        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("DEMOPROJECTKEY", "PLANKEY1"))
+        final PlanPermissions planPermission = new PlanPermissions(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"))
                 .permissions(new Permissions()
                         .userPermissions("bamboo", PermissionType.EDIT, PermissionType.VIEW_CONFIGURATION, PermissionType.VIEW, PermissionType.ADMIN, PermissionType.CLONE, PermissionType.BUILD)
                         .groupPermissions("bamboo-admin", PermissionType.ADMIN, PermissionType.VIEW_CONFIGURATION, PermissionType.BUILD, PermissionType.CLONE, PermissionType.VIEW, PermissionType.EDIT)
