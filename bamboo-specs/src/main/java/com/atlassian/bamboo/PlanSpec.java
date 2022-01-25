@@ -24,7 +24,7 @@ public class PlanSpec {
     public Plan plan() {
         final Plan plan = new Plan(new Project()
                 .key(new BambooKey("DEMOPROJECTKEY"))
-                .name("DEMOPROJECT"),
+                .name("DEMOPROJECT11"),
                 "PLAN1",
                 new BambooKey("PLANKEY1"))
                 .description("plan1")
@@ -70,7 +70,7 @@ public class PlanSpec {
 
     public static void main(String... argv) {
         //By default credentials are read from the '.credentials' file.
-        BambooServer bambooServer = new BambooServer("http://localhost:8085");
+        BambooServer bambooServer = new BambooServer("http://localhost:8086");
         final PlanSpec planSpec = new PlanSpec();
 
         final Plan plan = planSpec.plan();
