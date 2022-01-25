@@ -23,14 +23,14 @@ public class PlanSpec {
 
     public Plan plan() {
         final Plan plan = new Plan(new Project()
-                .key(new BambooKey("DEMOPROJECTKEY"))
-                .name("DEMOPROJECT11"),
+                .key(new BambooKey("DEMOPROJECTKEY5"))
+                .name("DEMOPROJECT5"),
                 "PLAN1",
-                new BambooKey("PLANKEY1"))
-                .description("plan1")
+                new BambooKey("PLANKEY5"))
+                .description("plan5")
                 .pluginConfigurations(new ConcurrentBuilds())
-                .stages(new Stage("Stage1")
-                        .jobs(new Job("Job1",
+                .stages(new Stage("Stage5")
+                        .jobs(new Job("Job5",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
                                         .name("Build results")
