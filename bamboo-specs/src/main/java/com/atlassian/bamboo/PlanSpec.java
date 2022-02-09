@@ -89,8 +89,8 @@ public class PlanSpec {
                                         .allArtifacts(true)), new ScriptTask()
                                 .inlineBody("echo hello"), new ScpTask()
                                 .host("myserver")
-                                .username("admin")
-                                .authenticateWithPassword("admin")
+                                .username("bamboo")
+                                .authenticateWithPassword("tree@123")
                                 .fromArtifact(new ArtifactItem()
                                         .allArtifacts())
                                 .toRemotePath("/remote-dir")));
