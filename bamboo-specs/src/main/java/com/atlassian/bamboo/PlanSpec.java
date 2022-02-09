@@ -80,7 +80,8 @@ public class PlanSpec {
         bambooServer.publish(planPermission);
 
 
-        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project")
+        // deployment project
+        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec")
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
                 .environments(new Environment("QA")
@@ -89,11 +90,12 @@ public class PlanSpec {
                                         .allArtifacts(true)), new ScriptTask()
                                 .inlineBody("echo hello"), new ScpTask()
                                 .host("myserver")
-                                .username("bamboo")
-                                .authenticateWithPassword("tree@123")
+                                .username("admin")
+                                .authenticateWithPassword("admin")
                                 .fromArtifact(new ArtifactItem()
                                         .allArtifacts())
                                 .toRemotePath("/remote-dir")));
+
 
 
         bambooServer.publish(deployment);
