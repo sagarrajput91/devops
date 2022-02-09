@@ -78,5 +78,26 @@ public class PlanSpec {
 
         final PlanPermissions planPermission = planSpec.planPermission();
         bambooServer.publish(planPermission);
+
+
+        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project111")
+                .releaseNaming(new ReleaseNaming("release-1.1")
+                        .autoIncrement(true))
+                .environments(new Environment("QA")
+                        .tasks(new ArtifactDownloaderTask()
+                                .artifacts(new DownloadItem()
+                                        .allArtifacts(true)), new ScriptTask()
+                                .inlineBody("echo hello"), new ScpTask()
+                                .host("myserver")
+                                .username("admin")
+                                .authenticateWithPassword("admin")
+                                .fromArtifact(new ArtifactItem()
+                                        .allArtifacts())
+                                .toRemotePath("/remote-dir")));
+
+
+        bambooServer.publish(deployment);
+
+
     }
 }
