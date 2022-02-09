@@ -81,7 +81,7 @@ public class PlanSpec {
 
 
         // deployment project
-        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec")
+/*        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec")
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
                 .environments(new Environment("QA")
@@ -98,6 +98,6 @@ public class PlanSpec {
 
 
 
-        bambooServer.publish(deployment);
+        bambooServer.publish(deployment);*/
     }
 }
