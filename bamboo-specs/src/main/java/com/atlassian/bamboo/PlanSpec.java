@@ -80,7 +80,7 @@ public class PlanSpec {
         final PlanSpec planSpec = new PlanSpec();
 
         final Plan plan = planSpec.plan();
-        //bambooServer.publish(plan);
+        bambooServer.publish(plan);
 
         final PlanPermissions planPermission = planSpec.planPermission();
         bambooServer.publish(planPermission);
