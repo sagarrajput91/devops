@@ -70,18 +70,18 @@ public class PlanSpec {
 
     public static void main(String... argv) {
         //By default credentials are read from the '.credentials' file.
-        BambooServer bambooServer = new BambooServer("http://localhost:8086");
+/*        BambooServer bambooServer = new BambooServer("http://localhost:8086");
         final PlanSpec planSpec = new PlanSpec();
 
         final Plan plan = planSpec.plan();
         bambooServer.publish(plan);
 
         final PlanPermissions planPermission = planSpec.planPermission();
-        bambooServer.publish(planPermission);
+        bambooServer.publish(planPermission);*/
 
 
         // deployment project
-/*        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec")
+        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec")
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
                 .environments(new Environment("QA")
@@ -98,6 +98,6 @@ public class PlanSpec {
 
 
 
-        bambooServer.publish(deployment);*/
+        bambooServer.publish(deployment);
     }
 }
