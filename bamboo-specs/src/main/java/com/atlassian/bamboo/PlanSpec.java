@@ -80,7 +80,7 @@ public class PlanSpec {
         bambooServer.publish(planPermission);
 
 
-/*        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project111")
+        Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project")
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
                 .environments(new Environment("QA")
@@ -96,8 +96,6 @@ public class PlanSpec {
                                 .toRemotePath("/remote-dir")));
 
 
-        bambooServer.publish(deployment);*/
-
-
+        bambooServer.publish(deployment);
     }
 }
