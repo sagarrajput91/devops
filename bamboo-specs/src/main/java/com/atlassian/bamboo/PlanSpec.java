@@ -70,14 +70,14 @@ public class PlanSpec {
 
     public static void main(String... argv) {
         //By default credentials are read from the '.credentials' file.
-/*        BambooServer bambooServer = new BambooServer("http://localhost:8086");
+        BambooServer bambooServer = new BambooServer("http://localhost:8086");
         final PlanSpec planSpec = new PlanSpec();
 
         final Plan plan = planSpec.plan();
-        bambooServer.publish(plan);
+        //bambooServer.publish(plan);
 
         final PlanPermissions planPermission = planSpec.planPermission();
-        bambooServer.publish(planPermission);*/
+        bambooServer.publish(planPermission);
 
 
         // deployment project
