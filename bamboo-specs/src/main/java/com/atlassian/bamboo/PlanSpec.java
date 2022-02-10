@@ -94,13 +94,13 @@ public class PlanSpec {
                         .tasks(new ArtifactDownloaderTask()
                                 .artifacts(new DownloadItem()
                                         .allArtifacts(true)), new ScriptTask()
-                                .inlineBody("echo hello"), new ScpTask()
+                                .inlineBody("echo hello")/*, new ScpTask()
                                 .host("myserver")
                                 .username("admin")
                                 .authenticateWithPassword("admin")
                                 .fromArtifact(new ArtifactItem()
                                         .allArtifacts())
-                                .toRemotePath("/remote-dir")));
+                                .toRemotePath("/remote-dir")*/));
 
 
 
