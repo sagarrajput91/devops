@@ -93,6 +93,8 @@ public class PlanSpec {
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
                 .environments(new Environment("QA")
+                                .triggers(new AfterSuccessfulBuildPlanTrigger()
+                                .triggerByBranch("master"))
                         .tasks(new ArtifactDownloaderTask()
                                 .artifacts(new DownloadItem()
                                         .allArtifacts(true)), new ScriptTask()
