@@ -22,6 +22,7 @@ import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
 import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
 import com.atlassian.bamboo.specs.builders.task.*;
 import com.atlassian.bamboo.specs.builders.trigger.AfterSuccessfulBuildPlanTrigger;
+import com.atlassian.bamboo.specs.api.builders.plan.branches.BranchIntegration;
 
 
 @BambooSpec
@@ -59,7 +60,7 @@ public class PlanSpec {
                         "task2 task1 task3"))
                 .planBranchManagement(new PlanBranchManagement()
                         .createForVcsBranch().branchIntegration(new BranchIntegration()
-                                .integrationBranchKey("MASTER")
+                                .integrationBranchKey("MASTER"))
                         .delete(new BranchCleanup()
                                 .whenRemovedFromRepositoryAfterDays(7)))
                 .forceStopHungBuilds();
