@@ -55,12 +55,14 @@ public class PlanSpec {
                                                 .inlineBody("echo \"task3\"\necho ${bamboo.sequence}")
                                 )))
                 .linkedRepositories("devops-service")
-
                 .variables(new Variable("sequence",
                         "task2 task1 task3"))
                 .planBranchManagement(new PlanBranchManagement()
-                        .delete(new BranchCleanup()))
+                        .createForVcsBranch()
+                        .delete(new BranchCleanup()
+                                .whenRemovedFromRepositoryAfterDays(7)))
                 .forceStopHungBuilds();
+
         return plan;
     }
 
