@@ -98,7 +98,7 @@ public class PlanSpec {
                         .tasks(new ArtifactDownloaderTask()
                                 .artifacts(new DownloadItem()
                                         .allArtifacts(true)), new ScriptTask()
-                                .inlineBody("echo hello")/*, new ScpTask()
+                                .inlineBody("echo \"sleeping\"\nsleep 50s")/*, new ScpTask()
                                 .host("myserver")
                                 .username("admin")
                                 .authenticateWithPassword("admin")
