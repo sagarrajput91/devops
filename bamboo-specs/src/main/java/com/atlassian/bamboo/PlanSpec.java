@@ -94,7 +94,7 @@ public class PlanSpec {
                         .autoIncrement(true))
                 .environments(new Environment("QA")
                                 .triggers(new AfterSuccessfulBuildPlanTrigger()
-                                .triggerByBranch("master"))
+                                .triggerByBranch("planbranch1"))
                         .tasks(new ArtifactDownloaderTask()
                                 .artifacts(new DownloadItem()
                                         .allArtifacts(true)), new ScriptTask()
