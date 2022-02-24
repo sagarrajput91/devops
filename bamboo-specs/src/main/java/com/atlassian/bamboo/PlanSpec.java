@@ -26,7 +26,7 @@ import com.atlassian.bamboo.specs.builders.trigger.RepositoryPollingTrigger;
 import java.util.concurrent.TimeUnit;
 
 
-
+// change for planbr1
 @BambooSpec
 public class PlanSpec {
 
