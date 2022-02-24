@@ -22,6 +22,9 @@ import com.atlassian.bamboo.specs.api.builders.deployment.Environment;
 import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
 import com.atlassian.bamboo.specs.builders.task.*;
 import com.atlassian.bamboo.specs.builders.trigger.AfterSuccessfulBuildPlanTrigger;
+import com.atlassian.bamboo.specs.builders.trigger.RepositoryPollingTrigger;
+import java.util.concurrent.TimeUnit;
+
 
 
 @BambooSpec
@@ -33,6 +36,8 @@ public class PlanSpec {
                 .name("DEMOPROJECT5"),
                 "PLAN5",
                 new BambooKey("PLANKEY5"))
+                .triggers(new RepositoryPollingTrigger()
+                        .pollEvery(10, TimeUnit.SECONDS))
                 .description("plan5")
                 .pluginConfigurations(new ConcurrentBuilds())
                 .stages(new Stage("Stage1")
