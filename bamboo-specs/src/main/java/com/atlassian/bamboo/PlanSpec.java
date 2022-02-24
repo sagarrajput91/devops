@@ -97,9 +97,9 @@ public class PlanSpec {
         Deployment deployment = new Deployment(new PlanIdentifier("DEMOPROJECTKEY5", "PLANKEY5"), "My deployment project coming from bamboo spec-new")
                 .releaseNaming(new ReleaseNaming("release-1.1")
                         .autoIncrement(true))
-                .environments(new Environment("QA")
+                .environments(new Environment("QA")/*
                                 .triggers(new AfterSuccessfulBuildPlanTrigger()
-                                .triggerByBranch("planbranch1"))
+                                .triggerByBranch("planbranch1"))*/
                         .tasks(new ArtifactDownloaderTask()
                                 .artifacts(new DownloadItem()
                                         .allArtifacts(true)), new ScriptTask()
