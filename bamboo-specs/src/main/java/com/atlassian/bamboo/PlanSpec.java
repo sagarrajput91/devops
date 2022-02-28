@@ -41,7 +41,7 @@ public class PlanSpec {
                 .description("plan5")
                 .pluginConfigurations(new ConcurrentBuilds())
                 .stages(new Stage("Stage1")
-                        .jobs(new Job("Job1",
+                        .jobs(new Job("Job name of plan branch",
                                 new BambooKey("JOBKEY"))
                                 .artifacts(new Artifact()
                                         .name("Build results")
