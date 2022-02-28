@@ -23,6 +23,7 @@ import com.atlassian.bamboo.specs.api.builders.deployment.ReleaseNaming;
 import com.atlassian.bamboo.specs.builders.task.*;
 import com.atlassian.bamboo.specs.builders.trigger.AfterSuccessfulBuildPlanTrigger;
 import com.atlassian.bamboo.specs.builders.trigger.RepositoryPollingTrigger;
+
 import java.util.concurrent.TimeUnit;
 
 
@@ -48,7 +49,7 @@ public class PlanSpec {
                                         .copyPattern("**/*")
                                         .location("target"))
                                 .tasks(new VcsCheckoutTask()
-                                        .checkoutItems(new CheckoutItem().defaultRepository()),
+                                                .checkoutItems(new CheckoutItem().defaultRepository()),
                                         new ScriptTask()
                                                 .description("task1")
                                                 .inlineBody("echo 'task1'"),
@@ -100,17 +101,29 @@ public class PlanSpec {
                 .environments(new Environment("QA")/*
                                 .triggers(new AfterSuccessfulBuildPlanTrigger()
                                 .triggerByBranch("planbranch1"))*/
-                        .tasks(new ArtifactDownloaderTask()
-                                .artifacts(new DownloadItem()
-                                        .allArtifacts(true)), new ScriptTask()
-                                .inlineBody("echo \"sleeping\"\nsleep 50s")/*, new ScpTask()
+                                .tasks(new ArtifactDownloaderTask()
+                                        .artifacts(new DownloadItem()
+                                                .allArtifacts(true)), new ScriptTask()
+                                        .inlineBody("echo \"sleeping\"\nsleep 50s")/*, new ScpTask()
+                                .host("myserver")
+                                .username("admin")
+                                .authenticateWithPassword("admin")
+                                .fromArtifact(new ArtifactItem()
+                                        .allArtifacts())
+                                .toRemotePath("/remote-dir")*/),
+                              new Environment("Dev")/*
+                                .triggers(new AfterSuccessfulBuildPlanTrigger()
+                                .triggerByBranch("planbranch1"))*/
+                                .tasks(new ArtifactDownloaderTask()
+                                        .artifacts(new DownloadItem()
+                                                .allArtifacts(true)), new ScriptTask()
+                                        .inlineBody("echo \"sleeping\"\nsleep 50s")/*, new ScpTask()
                                 .host("myserver")
                                 .username("admin")
                                 .authenticateWithPassword("admin")
                                 .fromArtifact(new ArtifactItem()
                                         .allArtifacts())
                                 .toRemotePath("/remote-dir")*/));
-
 
 
         bambooServer.publish(deployment);
