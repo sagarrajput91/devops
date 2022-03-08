@@ -52,7 +52,7 @@ public class PlanSpec {
                                                 .checkoutItems(new CheckoutItem().defaultRepository()),
                                         new ScriptTask()
                                                 .description("task1")
-                                                .inlineBody("echo 'task1'"),
+                                                .inlineBody("echo 'task1'\necho 'sleeping'\nsleep 50s"),
                                         new ScriptTask()
                                                 .description("task2")
                                                 .inlineBody("echo \"task2\""),
